@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Strona projektu Stacji Meteorologicznej";
+}
+
+<div class="jumbotron">
+    <h1><i>MeteoStation</i></h1>
+    <p class="lead">Podgląd danych pogodowych z własnej stacjonarnej stacji pogodowej wraz z bazą wiedzy pozwalającą określić warunki pogodowe.</p>
+</div>
+
+<div class="container">
+    <h3>Opis projektu</h3>
+    <p style="text-align: justify;">
+        Projekt MeteoStation zawiera w sobie projekt prostej stacji meteo, która zbiera pomiary temperatury, wilgotności oraz ciśnienia atmosferycznego za pomocą zamontowanych czujników. Stacją steruje mikrokontroler na platformie Arduino, który ma za zadanie zbierać wymienione pomiary oraz przekazywać je za pomocą modułu WiFi do bazy danych w okreslonym interwale czasowym (tutaj co jedną godzinę). Aby przeprowadzić konfigurację stacji wykorzstano komunikacje po Bluetooth.
+    </p>
+    <p style="text-align: justify;">
+        Projekt zawiera także aplikacje internetową, dzięki której można przeglądać zgormadzone dane pogodowe ze stacji za pomocą personalizownych wykresów. Użytkownik określa jaki typ wykresu chce zobaczyć oraz ile dni wstecz (od dnia aktualnego) mają zostać pobrane i wyświetlone dane.
+        <br/>
+        Aplikacja zawiera bazę wiedzy, za pomocą której można zobaczyć prognozę warunków pogodowych w pobliżu stacji meteo oraz określić, czy przebywanie w tym czasie w miejscu w pobliżu stacji jest bezpieczne (np. stacja zamontowana na elektrowni wiatrowej zbiera pomiary warunków na jej szczycie co pozwala ekipie dokonującej przeglądów oraz napraw na określenie czy wejście na maszt elektorwni jest bezpieczny).
+    </p>
+</div>
+
+<div class="col">
+    <div class="col-md-5 table-bordered">
+        <h2>Dane pogodowe</h2>
+        <p>Wykresy danych pogodowych zebranych przez stację meteorologiczną do dziesięciu dni wstecz!</p>
+        <p> @Html.ActionLink("Przejdź", "Index", "Chart", new { area = "" }, new { @class="btn btn-default"}) </p>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-5 table-bordered">
+        <h2>Prognoza</h2>
+        <p>Wykorzystanie bazy wiedzy do prognozy warunków pogodowych w pobliżu stacji i informacji o nich.</p>
+        <p> @Html.ActionLink("Przejdź", "WeatherForecast", "Home", new { area = "" }, new { @class = "btn btn-default" }) </p>
+    </div>
+</div>

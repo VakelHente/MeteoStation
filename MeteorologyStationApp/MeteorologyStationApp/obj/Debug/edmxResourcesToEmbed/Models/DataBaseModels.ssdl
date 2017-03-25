@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MeteostationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="data">
+    <Key>
+      <PropertyRef Name="iddata" />
+    </Key>
+    <Property Name="iddata" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tempreture" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="humidity" Type="decimal" Precision="5" Scale="4" />
+    <Property Name="pressure" Type="int" />
+    <Property Name="iddevice" Type="int" Nullable="false" />
+    <Property Name="idregion" Type="int" Nullable="false" />
+    <Property Name="date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="devices">
+    <Key>
+      <PropertyRef Name="iddevice" />
+    </Key>
+    <Property Name="iddevice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idmember" Type="int" Nullable="false" />
+    <Property Name="nrDevice" Type="int" />
+  </EntityType>
+  <EntityType Name="members">
+    <Key>
+      <PropertyRef Name="idmember" />
+    </Key>
+    <Property Name="idmember" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="lastName" Type="varchar" MaxLength="50" />
+    <Property Name="login" Type="varchar" MaxLength="50" />
+    <Property Name="password" Type="varchar" MaxLength="50" />
+    <Property Name="dateRegister" Type="datetime" />
+  </EntityType>
+  <EntityType Name="regions">
+    <Key>
+      <PropertyRef Name="idregion" />
+    </Key>
+    <Property Name="idregion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nameRegion" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_data_devices">
+    <End Role="devices" Type="Self.devices" Multiplicity="1" />
+    <End Role="data" Type="Self.data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="devices">
+        <PropertyRef Name="iddevice" />
+      </Principal>
+      <Dependent Role="data">
+        <PropertyRef Name="iddevice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_data_regions">
+    <End Role="regions" Type="Self.regions" Multiplicity="1" />
+    <End Role="data" Type="Self.data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="regions">
+        <PropertyRef Name="idregion" />
+      </Principal>
+      <Dependent Role="data">
+        <PropertyRef Name="idregion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_devices_members">
+    <End Role="members" Type="Self.members" Multiplicity="1" />
+    <End Role="devices" Type="Self.devices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="members">
+        <PropertyRef Name="idmember" />
+      </Principal>
+      <Dependent Role="devices">
+        <PropertyRef Name="idmember" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MeteostationModelStoreContainer">
+    <EntitySet Name="data" EntityType="Self.data" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="devices" EntityType="Self.devices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_data_devices" Association="Self.FK_data_devices">
+      <End Role="devices" EntitySet="devices" />
+      <End Role="data" EntitySet="data" />
+    </AssociationSet>
+    <AssociationSet Name="FK_data_regions" Association="Self.FK_data_regions">
+      <End Role="regions" EntitySet="regions" />
+      <End Role="data" EntitySet="data" />
+    </AssociationSet>
+    <AssociationSet Name="FK_devices_members" Association="Self.FK_devices_members">
+      <End Role="members" EntitySet="members" />
+      <End Role="devices" EntitySet="devices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

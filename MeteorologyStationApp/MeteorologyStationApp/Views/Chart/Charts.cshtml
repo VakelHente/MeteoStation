@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "Charts";
+}
+<br /><br />
+<h2 class="text-center">@ViewBag.Message</h2>
+<br /><br />
+
+<form method="post" class="col">
+    <div class="row">
+        <span class="col-md-4">Wyberz rodzaj wykresu temperatury:</span>
+        <select name="TemperatureChartsType" class="col-md-2">
+            <option value="Column">Kolumnowy</option>
+            <option value="Area">Powierzchniowy</option>
+            <option value="Bar">Poziome słupki</option>
+            <option value="Line">Liniowy</option>
+            <option value="Pie">Ciasto</option>
+            <option value="Stock">Punktowy</option>
+        </select>
+        <br/>
+        <span class="col-md-4">Wybierz zakres dni wstecz dla wykresu temperatury: </span>
+        <select name="DaysNumberForTemperatureChart" class="col-md-2">
+            @{
+                for (int i = 1; i <= 10; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            }
+        </select>
+    </div>
+    <br/>
+    <div class="row">
+        <span class="col-md-4">Wyberz rodzaj wykresu wilgotności:</span>
+        <select name="HumidityChartsType" class="col-md-2">
+            <option value="Column">Kolumnowy</option>
+            <option value="Area">Powierzchniowy</option>
+            <option value="Bar">Poziome słupki</option>
+            <option value="Line">Liniowy</option>
+            <option value="Pie">Ciasto</option>
+            <option value="Stock">Punktowy</option>
+        </select>
+        <br/>
+        <span class="col-md-4">Wybierz zakres dni wstecz dla wykresu wilgotności: </span>
+        <select name="DaysNumberForHumidityChart" class="col-md-2">
+            @{
+                for (int i = 1; i <= 10; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            }
+        </select>
+    </div>
+    <br/>
+    <div class="row">
+        <span class="col-md-4">Wyberz rodzaj wykresu ciśnienia:</span>
+        <select name="PressureChartsType" class="col-md-2">
+            <option value="Column">Kolumnowy</option>
+            <option value="Area">Powierzchniowy</option>
+            <option value="Bar">Poziome słupki</option>
+            <option value="Line">Liniowy</option>
+            <option value="Pie">Ciasto</option>
+            <option value="Stock">Punktowy</option>
+        </select>
+        <br/>
+        <span class="col-md-4">Wybierz zakres dni wstecz dla wykresu ciśnienia: </span>
+        <select name="DaysNumberForPressureChart" class="col-md-2">
+            @{
+                for (int i = 1; i <= 10; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            }
+        </select>
+    </div>
+    <br /><br />
+    <input type="submit" value="Przeładuj wykresy"/>
+</form>
+
+
+<div class="row">
+    <div class="text-center"><b>Wykres Temperatury</b></div>
+    <img src="@Url.Action("GenerateTemperatureChart", new { daysNumber = Convert.ToInt32(ViewBag.TemperatureDaysNumber), type = ViewBag.TemperatureType })" alt="Temperature Chart" class="img-responsive" style="margin: 0 auto;"/>
+    <br/>
+    <div class="text-center"><b>Wykres Wilgotności</b></div>
+    <img src="@Url.Action("GenerateHumidityChart" , new { daysNumber = Convert.ToInt32(ViewBag.HumidityDaysNumber), type = ViewBag.HumidityType })" alt="Humidity Chart" class="img-responsive" style="margin: 0 auto;"/>
+    <br/>
+    <div class="text-center"><b>Wykres Ciśnienia</b></div>
+    <img src="@Url.Action("GeneratePressureChart" , new { daysNumber = Convert.ToInt32(ViewBag.PressureDaysNumber), type = ViewBag.PressureType })" alt="Pressure Chart" class="img-responsive" style="margin: 0 auto;" />
+</div>

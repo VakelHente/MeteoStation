@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MeteostationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="data">
+    <Key>
+      <PropertyRef Name="iddata" />
+    </Key>
+    <Property Name="iddata" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tempreture" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="humidity" Type="Decimal" Precision="5" Scale="4" />
+    <Property Name="pressure" Type="Int32" />
+    <Property Name="iddevice" Type="Int32" Nullable="false" />
+    <Property Name="idregion" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="devices" Relationship="Self.FK_data_devices" FromRole="data" ToRole="devices" />
+    <NavigationProperty Name="regions" Relationship="Self.FK_data_regions" FromRole="data" ToRole="regions" />
+  </EntityType>
+  <EntityType Name="devices">
+    <Key>
+      <PropertyRef Name="iddevice" />
+    </Key>
+    <Property Name="iddevice" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idmember" Type="Int32" Nullable="false" />
+    <Property Name="nrDevice" Type="Int32" />
+    <NavigationProperty Name="data" Relationship="Self.FK_data_devices" FromRole="devices" ToRole="data" />
+    <NavigationProperty Name="members" Relationship="Self.FK_devices_members" FromRole="devices" ToRole="members" />
+  </EntityType>
+  <EntityType Name="members">
+    <Key>
+      <PropertyRef Name="idmember" />
+    </Key>
+    <Property Name="idmember" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dateRegister" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="devices" Relationship="Self.FK_devices_members" FromRole="members" ToRole="devices" />
+  </EntityType>
+  <EntityType Name="regions">
+    <Key>
+      <PropertyRef Name="idregion" />
+    </Key>
+    <Property Name="idregion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nameRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="data" Relationship="Self.FK_data_regions" FromRole="regions" ToRole="data" />
+  </EntityType>
+  <Association Name="FK_data_devices">
+    <End Role="devices" Type="Self.devices" Multiplicity="1" />
+    <End Role="data" Type="Self.data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="devices">
+        <PropertyRef Name="iddevice" />
+      </Principal>
+      <Dependent Role="data">
+        <PropertyRef Name="iddevice" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_data_regions">
+    <End Role="regions" Type="Self.regions" Multiplicity="1" />
+    <End Role="data" Type="Self.data" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="regions">
+        <PropertyRef Name="idregion" />
+      </Principal>
+      <Dependent Role="data">
+        <PropertyRef Name="idregion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_devices_members">
+    <End Role="members" Type="Self.members" Multiplicity="1" />
+    <End Role="devices" Type="Self.devices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="members">
+        <PropertyRef Name="idmember" />
+      </Principal>
+      <Dependent Role="devices">
+        <PropertyRef Name="idmember" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MeteorologyStationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="data" EntityType="Self.data" />
+    <EntitySet Name="devices" EntityType="Self.devices" />
+    <EntitySet Name="members" EntityType="Self.members" />
+    <EntitySet Name="regions" EntityType="Self.regions" />
+    <AssociationSet Name="FK_data_devices" Association="Self.FK_data_devices">
+      <End Role="devices" EntitySet="devices" />
+      <End Role="data" EntitySet="data" />
+    </AssociationSet>
+    <AssociationSet Name="FK_data_regions" Association="Self.FK_data_regions">
+      <End Role="regions" EntitySet="regions" />
+      <End Role="data" EntitySet="data" />
+    </AssociationSet>
+    <AssociationSet Name="FK_devices_members" Association="Self.FK_devices_members">
+      <End Role="members" EntitySet="members" />
+      <End Role="devices" EntitySet="devices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

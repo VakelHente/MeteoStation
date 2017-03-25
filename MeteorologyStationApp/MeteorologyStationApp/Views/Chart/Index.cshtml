@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "Charts";
+}
+<br /><br />
+<h2>@ViewBag.Message</h2>
+<br /><br />
+
+<form method="post" class="row">
+    <span class="col-md-4">Wyberz rodzaj wykresu temperatury:</span>
+     <select name="TemperatureChartsType" class="col-md-2">
+         <option value="Column">Kolumnowy</option>
+         <option value="Area">Powierzchniowy</option>
+         <option value="Bar">Poziome słupki</option>
+         <option value="Line">Liniowy</option>
+         <option value="Pie">Ciasto</option>
+         <option value="Stock">Punktowy</option>
+    </select>
+    <br/>
+    <span class="col-md-4">Wybierz zakres dni wstecz dla wykresu temperatury: </span> 
+    <select name="DaysNumberForTemperatureChart" class="col-md-2">
+        @{ 
+            for (int i = 1; i <= 10; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        }    
+    </select>
+    <br/><br/><br/>
+    <span class="col-md-4">Wyberz rodzaj wykresu wilgotności:</span>
+    <select name="HumidityChartsType" class="col-md-2">
+        <option value="Column">Kolumnowy</option>
+        <option value="Area">Powierzchniowy</option>
+        <option value="Bar">Poziome słupki</option>
+        <option value="Line">Liniowy</option>
+        <option value="Pie">Ciasto</option>
+        <option value="Stock">Punktowy</option>
+    </select>
+    </br>
+    <span class="col-md-4">Wybierz zakres dni wstecz dla wykresu wilgotności: </span>
+    <select name="DaysNumberForHumidityChart" class="col-md-2">
+        @{
+            for (int i = 1; i <= 10; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        }
+    </select>
+    <br/><br/><br/>
+    <span class="col-md-4">Wyberz rodzaj wykresu ciśnienia:</span>
+    <select name="PressureChartsType" class="col-md-2">
+        <option value="Column">Kolumnowy</option>
+        <option value="Area">Powierzchniowy</option>
+        <option value="Bar">Poziome słupki</option>
+        <option value="Line">Liniowy</option>
+        <option value="Pie">Ciasto</option>
+        <option value="Stock">Punktowy</option>
+    </select>
+    <br />
+    <span class="col-md-4">Wybierz zakres dni wstecz dla wykresu ciśnienia: </span>
+    <select name="DaysNumberForPressureChart" class="col-md-2">
+        @{
+            for (int i = 1; i <= 10; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        }
+    </select>
+
+    <br/><br/><br/>
+    <input type="submit" value="Pokaż wykresy" class="col-md-4"/>
+</form>

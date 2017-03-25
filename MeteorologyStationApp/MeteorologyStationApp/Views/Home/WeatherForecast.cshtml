@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "WeatherForecast";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="jumbotron">
+    <h2><i>@ViewBag.Message</i></h2>
+    <p style="text-align: justify;" class="lead">
+        Predykcja pogody wykorzystująca pomiary z ostatniego czasu dla przewidywania warunków pogodowych na najbliższe kilka godzin w pobliżu pozycji stacji meteorologicznej. Zawiera także opinię o warunkach i zalecane zachowanie w poblizu stacji meteo.
+    </p>
+</div>
+<div class="row" style="text-align: justify;">
+    <div class="col-md-4">
+        <h3>Prognoza warunków pogodowych</h3>
+        <br/>
+        <p style="text-align: justify;">
+            @ViewBag.Pressure <br/>
+            @ViewBag.Humidity <br />
+            @ViewBag.Temperature <br />
+        </p>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <h3>Opinia o warunkach</h3>
+        <br/>
+        <p style="text-align: justify;">@ViewBag.Opinion</p>
+    </div>
+</div>

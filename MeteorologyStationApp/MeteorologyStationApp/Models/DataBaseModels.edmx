@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MeteostationModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="data">
+          <Key>
+            <PropertyRef Name="iddata" />
+          </Key>
+          <Property Name="iddata" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tempreture" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="humidity" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="pressure" Type="int" />
+          <Property Name="iddevice" Type="int" Nullable="false" />
+          <Property Name="idregion" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="devices">
+          <Key>
+            <PropertyRef Name="iddevice" />
+          </Key>
+          <Property Name="iddevice" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idmember" Type="int" Nullable="false" />
+          <Property Name="nrDevice" Type="int" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="idmember" />
+          </Key>
+          <Property Name="idmember" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="lastName" Type="varchar" MaxLength="50" />
+          <Property Name="login" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="dateRegister" Type="datetime" />
+        </EntityType>
+        <EntityType Name="regions">
+          <Key>
+            <PropertyRef Name="idregion" />
+          </Key>
+          <Property Name="idregion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameRegion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_data_devices">
+          <End Role="devices" Type="Self.devices" Multiplicity="1" />
+          <End Role="data" Type="Self.data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devices">
+              <PropertyRef Name="iddevice" />
+            </Principal>
+            <Dependent Role="data">
+              <PropertyRef Name="iddevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_data_regions">
+          <End Role="regions" Type="Self.regions" Multiplicity="1" />
+          <End Role="data" Type="Self.data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="regions">
+              <PropertyRef Name="idregion" />
+            </Principal>
+            <Dependent Role="data">
+              <PropertyRef Name="idregion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_devices_members">
+          <End Role="members" Type="Self.members" Multiplicity="1" />
+          <End Role="devices" Type="Self.devices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="members">
+              <PropertyRef Name="idmember" />
+            </Principal>
+            <Dependent Role="devices">
+              <PropertyRef Name="idmember" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MeteostationModelStoreContainer">
+          <EntitySet Name="data" EntityType="Self.data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="devices" EntityType="Self.devices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="regions" EntityType="Self.regions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_data_devices" Association="Self.FK_data_devices">
+            <End Role="devices" EntitySet="devices" />
+            <End Role="data" EntitySet="data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_data_regions" Association="Self.FK_data_regions">
+            <End Role="regions" EntitySet="regions" />
+            <End Role="data" EntitySet="data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_devices_members" Association="Self.FK_devices_members">
+            <End Role="members" EntitySet="members" />
+            <End Role="devices" EntitySet="devices" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MeteostationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="data">
+          <Key>
+            <PropertyRef Name="iddata" />
+          </Key>
+          <Property Name="iddata" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tempreture" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="humidity" Type="Decimal" Precision="5" Scale="4" />
+          <Property Name="pressure" Type="Int32" />
+          <Property Name="iddevice" Type="Int32" Nullable="false" />
+          <Property Name="idregion" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="devices" Relationship="Self.FK_data_devices" FromRole="data" ToRole="devices" />
+          <NavigationProperty Name="regions" Relationship="Self.FK_data_regions" FromRole="data" ToRole="regions" />
+        </EntityType>
+        <EntityType Name="devices">
+          <Key>
+            <PropertyRef Name="iddevice" />
+          </Key>
+          <Property Name="iddevice" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idmember" Type="Int32" Nullable="false" />
+          <Property Name="nrDevice" Type="Int32" />
+          <NavigationProperty Name="data" Relationship="Self.FK_data_devices" FromRole="devices" ToRole="data" />
+          <NavigationProperty Name="members" Relationship="Self.FK_devices_members" FromRole="devices" ToRole="members" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="idmember" />
+          </Key>
+          <Property Name="idmember" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dateRegister" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="devices" Relationship="Self.FK_devices_members" FromRole="members" ToRole="devices" />
+        </EntityType>
+        <EntityType Name="regions">
+          <Key>
+            <PropertyRef Name="idregion" />
+          </Key>
+          <Property Name="idregion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameRegion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="data" Relationship="Self.FK_data_regions" FromRole="regions" ToRole="data" />
+        </EntityType>
+        <Association Name="FK_data_devices">
+          <End Role="devices" Type="Self.devices" Multiplicity="1" />
+          <End Role="data" Type="Self.data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="devices">
+              <PropertyRef Name="iddevice" />
+            </Principal>
+            <Dependent Role="data">
+              <PropertyRef Name="iddevice" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_data_regions">
+          <End Role="regions" Type="Self.regions" Multiplicity="1" />
+          <End Role="data" Type="Self.data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="regions">
+              <PropertyRef Name="idregion" />
+            </Principal>
+            <Dependent Role="data">
+              <PropertyRef Name="idregion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_devices_members">
+          <End Role="members" Type="Self.members" Multiplicity="1" />
+          <End Role="devices" Type="Self.devices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="members">
+              <PropertyRef Name="idmember" />
+            </Principal>
+            <Dependent Role="devices">
+              <PropertyRef Name="idmember" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MeteorologyStationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="data" EntityType="Self.data" />
+          <EntitySet Name="devices" EntityType="Self.devices" />
+          <EntitySet Name="members" EntityType="Self.members" />
+          <EntitySet Name="regions" EntityType="Self.regions" />
+          <AssociationSet Name="FK_data_devices" Association="Self.FK_data_devices">
+            <End Role="devices" EntitySet="devices" />
+            <End Role="data" EntitySet="data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_data_regions" Association="Self.FK_data_regions">
+            <End Role="regions" EntitySet="regions" />
+            <End Role="data" EntitySet="data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_devices_members" Association="Self.FK_devices_members">
+            <End Role="members" EntitySet="members" />
+            <End Role="devices" EntitySet="devices" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MeteostationModelStoreContainer" CdmEntityContainer="MeteorologyStationEntities">
+          <EntitySetMapping Name="data">
+            <EntityTypeMapping TypeName="MeteostationModel.data">
+              <MappingFragment StoreEntitySet="data">
+                <ScalarProperty Name="iddata" ColumnName="iddata" />
+                <ScalarProperty Name="tempreture" ColumnName="tempreture" />
+                <ScalarProperty Name="humidity" ColumnName="humidity" />
+                <ScalarProperty Name="pressure" ColumnName="pressure" />
+                <ScalarProperty Name="iddevice" ColumnName="iddevice" />
+                <ScalarProperty Name="idregion" ColumnName="idregion" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="devices">
+            <EntityTypeMapping TypeName="MeteostationModel.devices">
+              <MappingFragment StoreEntitySet="devices">
+                <ScalarProperty Name="iddevice" ColumnName="iddevice" />
+                <ScalarProperty Name="idmember" ColumnName="idmember" />
+                <ScalarProperty Name="nrDevice" ColumnName="nrDevice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="MeteostationModel.members">
+              <MappingFragment StoreEntitySet="members">
+                <ScalarProperty Name="idmember" ColumnName="idmember" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="dateRegister" ColumnName="dateRegister" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="regions">
+            <EntityTypeMapping TypeName="MeteostationModel.regions">
+              <MappingFragment StoreEntitySet="regions">
+                <ScalarProperty Name="idregion" ColumnName="idregion" />
+                <ScalarProperty Name="nameRegion" ColumnName="nameRegion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

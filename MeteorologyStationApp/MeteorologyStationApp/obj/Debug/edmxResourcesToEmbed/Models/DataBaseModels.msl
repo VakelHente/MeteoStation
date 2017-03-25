@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MeteostationModelStoreContainer" CdmEntityContainer="MeteorologyStationEntities">
+    <EntitySetMapping Name="data">
+      <EntityTypeMapping TypeName="MeteostationModel.data">
+        <MappingFragment StoreEntitySet="data">
+          <ScalarProperty Name="iddata" ColumnName="iddata" />
+          <ScalarProperty Name="tempreture" ColumnName="tempreture" />
+          <ScalarProperty Name="humidity" ColumnName="humidity" />
+          <ScalarProperty Name="pressure" ColumnName="pressure" />
+          <ScalarProperty Name="iddevice" ColumnName="iddevice" />
+          <ScalarProperty Name="idregion" ColumnName="idregion" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="devices">
+      <EntityTypeMapping TypeName="MeteostationModel.devices">
+        <MappingFragment StoreEntitySet="devices">
+          <ScalarProperty Name="iddevice" ColumnName="iddevice" />
+          <ScalarProperty Name="idmember" ColumnName="idmember" />
+          <ScalarProperty Name="nrDevice" ColumnName="nrDevice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="members">
+      <EntityTypeMapping TypeName="MeteostationModel.members">
+        <MappingFragment StoreEntitySet="members">
+          <ScalarProperty Name="idmember" ColumnName="idmember" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="dateRegister" ColumnName="dateRegister" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="regions">
+      <EntityTypeMapping TypeName="MeteostationModel.regions">
+        <MappingFragment StoreEntitySet="regions">
+          <ScalarProperty Name="idregion" ColumnName="idregion" />
+          <ScalarProperty Name="nameRegion" ColumnName="nameRegion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
